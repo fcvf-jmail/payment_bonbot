@@ -1,0 +1,36 @@
+{
+    "allUsers": [
+        {
+            "name": "Me",
+            "chatId": "3143114"
+        }
+    ],
+    "mebel": {
+        "usersToSendCash": [
+            {
+                "name": "Me",
+                "chatId": "3143114"
+            }
+        ],
+        "usersToSendIpOrLlc": [
+            {
+                "name": "Me",
+                "chatId": "3143114"
+            }
+        ]
+    },
+    "bitovki": {
+        "usersToSendCash": [
+            {
+                "name": "Me",
+                "chatId": "3143114"
+            }
+        ],
+        "usersToSendIpOrLlc": [
+            {
+                "name": "Me",
+                "chatId": "3143114"
+            }
+        ]
+    }
+}
