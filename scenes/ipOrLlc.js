@@ -65,11 +65,12 @@ module.exports = new Scenes.WizardScene("ipScene",
     },
     ctx => {
         console.log(ctx.scene.session.state.payment);
-        try {if(ctx.message.text == "/cancel") return cancelAdding(ctx)} catch(err) {}
-        if(!ctx.callbackQuery) ctx.scene.session.state.payment.comment = ctx.message.text
+        try { if (ctx.message.text == "/cancel") return cancelAdding(ctx) } catch (err) { }
+        if (!ctx.callbackQuery) ctx.scene.session.state.payment.comment = ctx.message.text
         var { id, name, department, document, photo, date, number, summ, conteragent, destenation, comment } = ctx.scene.session.state.payment
         var ipOrLlc = ctx.scene.session.state.ipOrLlc
-        var text = `💼 Отдел: ${department}\n👤 Ответственный: ${name}\n📆 Дата: ${date}\n📃 Номер документа: ${number}\n💰 Сумма: ${summ}\n🟢 Исполнитель: ${ipOrLlc == "ООО" ? "ООО БОН-ГРУПП" : "ИП Иванов Юрий Алексеевич"}\n\👨‍💼Получатель: ${conteragent}\n📌 Назначение: ${destenation}${typeof comment != "undefined" ? `\n📝 Комментарий: ${comment}` : ""}`
+        var executor = ipOrLlc == "ООО" ? "ООО БОН-ГРУПП" : (department == "Бытовки" ? "ИП Петрован Михаил Алексеевич" : "ИП Иванов Юрий Алексеевич") // Если ооо, то бон груп, если ип с бытовками, то петрован, если ип с мебелью, то иванов
+        var text = `💼 Отдел: ${department}\n👤 Ответственный: ${name}\n📆 Дата: ${date}\n📃 Номер документа: ${number}\n💰 Сумма: ${summ}\n🟢 Исполнитель: ${executor}\n\👨‍💼Получатель: ${conteragent}\n📌 Назначение: ${destenation}${typeof comment != "undefined" ? `\n📝 Комментарий: ${comment}` : ""}`
         const departmentBaseName = department == "Бытовки" ? "bitovki" : "mebel"
         if(document) for(var user of getChatIds(departmentBaseName, "usersToSendIpOrLlc")) try {ctx.telegram.sendDocument(user.chatId, document, {caption: text, reply_markup: {inline_keyboard: [[{text: "Согласовано", callback_data: "accepetedBy"+id}], [{text: "Не согласовано", callback_data: "deniedBy"+id}]]}}).catch(err => {console.log(err, "ipOrLlc.js - 74")})} catch(err){console.log(err, "ipOrLlc.js - 74")} 
         if(photo) for(var user of getChatIds(departmentBaseName, "usersToSendIpOrLlc")) try {ctx.telegram.sendPhoto(user.chatId, photo, {caption: text, reply_markup: {inline_keyboard: [[{text: "Согласовано", callback_data: "accepetedBy"+id}], [{text: "Не согласовано", callback_data: "deniedBy"+id}]]}}).catch(err => {console.log(err, "ipOrLlc.js - 75")})} catch(err){console.log(err, "ipOrLlc.js - 75")} 

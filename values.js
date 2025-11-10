@@ -1,7 +1,7 @@
 var path = require("path")
 
 module.exports = {
-    chatToSendCash: -1001623094212,
-    chatToSendIpOrLlc: -1001623094212,
+    chatToSendCash: -1001972740063,
+    chatToSendIpOrLlc: -1001972740063,
     baseFilePath: path.join(__dirname, "payments.json")
 }
